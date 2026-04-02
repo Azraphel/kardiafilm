@@ -3,37 +3,32 @@ import React from 'react';
 import Navigation from '../components/layout/Navigation';
 import Footer from '../components/layout/Footer';
 import Hero from '../components/sections/Hero';
-import Problem from '../components/sections/Problem';
-import Benefits from '../components/sections/Benefits';
-import CaseStudies from '../components/sections/CaseStudies';
-import Screenshots from '../components/sections/Screenshots';
-import HowItWorks from '../components/sections/HowItWorks';
 import About from '../components/sections/About';
+import Problem from '../components/sections/Problem';
+import Solution from '../components/sections/Solution';
+import CaseStudy from '../components/sections/CaseStudies';
+import HowItWorks from '../components/sections/HowItWorks';
+import FAQ from '../components/sections/Faq';
 import Contact from '../components/sections/Contact';
-import FilmStrip from '../components/ui/FilmStrip';
-import { useOneTimeSnap } from '../hooks/useOneTimeSnap';
-import { useFilmEffects } from '../hooks/useFilmEffects';
 import '../styles/animations.css';
 
 export default function Home() {
-  useOneTimeSnap();
-  useFilmEffects();
-
   return (
-    <div
-      className="min-h-screen bg-black text-white font-sans"
-      style={{ overflowX: 'clip' }}
-    >
+    <div className="min-h-screen bg-black text-white font-sans" style={{ overflowX: 'clip' }}>
+
+      {/* Effets globaux */}
+      <div className="film-grain" />
       <div className="film-lines" />
+      <div className="film-vignette" />
+
       <Navigation />
       <Hero />
+      <About />      {/* ← juste après le Hero — les gens achètent Stéphane d'abord */}
       <Problem />
-      <Benefits />
-      <CaseStudies />
-      <FilmStrip variant="premium" />
-      <Screenshots />
+      <Solution />
+      <CaseStudy />
       <HowItWorks />
-      <About />
+      <FAQ />
       <Contact />
       <Footer />
     </div>

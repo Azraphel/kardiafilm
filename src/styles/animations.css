@@ -1,166 +1,146 @@
-/* FilmStrip animations */
-.film-strip-right {
-  animation: scrollRight 40s linear infinite;
-}
+/* ============================================================
+   KARDIA GROWTH — animations.css
+   ============================================================ */
 
-.film-strip-left {
-  animation: scrollLeft 40s linear infinite;
-}
-
-@keyframes scrollRight {
-  0% { transform: translateX(-50%); }
-  100% { transform: translateX(0%); }
-}
-
-@keyframes scrollLeft {
-  0% { transform: translateX(0%); }
-  100% { transform: translateX(-50%); }
-}
-
-/* FilmStrip Stats */
-.film-strip-stats {
-  animation: filmToCenterAndDrop 3s ease-in-out forwards;
-}
-
-@keyframes filmToCenterAndDrop {
-  0% { transform: translateX(-100%); }
-  40% { transform: translateX(0); }
-  50% { transform: translateX(0); }
-  100% { transform: translateX(0) translateY(0); }
-}
-
-.film-strip-dangle {
-  animation: dangle 2s ease-in-out infinite;
-  transform-origin: top center;
-}
-
-@keyframes dangle {
-  0%, 100% { transform: rotate(-2deg); }
-  50% { transform: rotate(2deg); }
-}
-
-/* Sections qui slident par-dessus */
-.section-slide-up {
-  animation: slideUpCover 0.8s ease-out;
-}
-
-@keyframes slideUpCover {
-  from {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-/* ===== EFFETS CINÉMATIQUES ===== */
-
-/* Vignette type vieux film */
-.film-vignette {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  pointer-events: none;
-  z-index: 9997;
-  background: radial-gradient(
-    circle at 50% 50%,
-    transparent 50%,
-    rgba(0, 0, 0, 0.5) 150%
-  );
-  opacity: 0.3;
-  transition: opacity 0.5s ease;
-}
-
-/* Grain de film */
+/* ── Grain de film ─────────────────────────────────────────── */
 .film-grain {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
   pointer-events: none;
   z-index: 9998;
-  opacity: 0.03;
+  opacity: 0.012;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   animation: filmGrain 8s steps(10) infinite;
 }
 
 @keyframes filmGrain {
-  0%, 100% { transform: translate(0, 0); }
-  10% { transform: translate(-1%, -1%); }
-  20% { transform: translate(1%, 1%); }
-  30% { transform: translate(-2%, 0); }
-  40% { transform: translate(2%, 2%); }
-  50% { transform: translate(-1%, 2%); }
-  60% { transform: translate(1%, -1%); }
-  70% { transform: translate(-2%, 1%); }
-  80% { transform: translate(2%, -1%); }
-  90% { transform: translate(-1%, -2%); }
+  0%,100% { transform: translate(0,0); }
+  10%     { transform: translate(-1%,-1%); }
+  20%     { transform: translate(1%,1%); }
+  30%     { transform: translate(-2%,0); }
+  40%     { transform: translate(2%,2%); }
+  50%     { transform: translate(-1%,2%); }
+  60%     { transform: translate(1%,-1%); }
+  70%     { transform: translate(-2%,1%); }
+  80%     { transform: translate(2%,-1%); }
+  90%     { transform: translate(-1%,-2%); }
 }
 
-/* Effet de mise au point */
-.section-film-focus {
-  transition: filter 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.section-film-focus.in-focus {
-  filter: brightness(1.05) contrast(1.02);
-  transform: scale(1.001);
-}
-
-.section-film-focus.out-of-focus {
-  filter: brightness(0.98) contrast(0.98);
-  transform: scale(0.999);
-}
-
-/* Lignes de film horizontales (effet cinéma) */
+/* ── Scan lines ────────────────────────────────────────────── */
 .film-lines {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   pointer-events: none;
   z-index: 9996;
   background: repeating-linear-gradient(
     0deg,
     transparent,
     transparent 2px,
-    rgba(0, 0, 0, 0.1) 2px,
-    rgba(0, 0, 0, 0.1) 4px
+    rgba(0,0,0,0.06) 2px,
+    rgba(0,0,0,0.06) 4px
   );
-  opacity: 0.1;
+  opacity: 0.4;
 }
 
-/* Effet de clap (transition entre sections) */
-@keyframes filmClap {
-  0% { 
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  20% { 
-    opacity: 0.2;
-    transform: scale(1.02);
-  }
-  100% { 
-    opacity: 0;
-    transform: scale(1);
-  }
-}
-
-.film-clap-effect {
+/* ── Vignette ──────────────────────────────────────────────── */
+.film-vignette {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: white;
+  inset: 0;
   pointer-events: none;
-  z-index: 10000;
-  animation: filmClap 0.4s ease-out;
+  z-index: 9997;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    transparent 55%,
+    rgba(0,0,0,0.55) 100%
+  );
+}
+
+/* ── Gradient de fond animé (Hero) ─────────────────────────── */
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.hero-gradient-bg {
+  background: linear-gradient(
+    135deg,
+    #000000 0%,
+    #0d0020 25%,
+    #1a0040 50%,
+    #0d0020 75%,
+    #000000 100%
+  );
+  background-size: 400% 400%;
+  animation: gradientShift 12s ease infinite;
+}
+
+/* ── Particules (canvas backdrop) ─────────────────────────── */
+.hero-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* ── Fade-in au scroll ─────────────────────────────────────── */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Glow pulse sur les cartes ─────────────────────────────── */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 30px -10px rgba(124,58,237,0.3); }
+  50%       { box-shadow: 0 0 50px -8px rgba(124,58,237,0.55); }
+}
+
+.glow-pulse {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+/* ── Typing cursor pour le badge ───────────────────────────── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.cursor-blink::after {
+  content: '|';
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+  color: #a855f7;
+}
+
+/* ── Slide-in sections ─────────────────────────────────────── */
+@keyframes slideUpCover {
+  from { transform: translateY(40px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* ── Shimmer sur les stats ─────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+.stat-shimmer {
+  background: linear-gradient(
+    90deg,
+    #a855f7 0%,
+    #c084fc 40%,
+    #a855f7 60%,
+    #7c3aed 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
 }
