@@ -32,13 +32,11 @@ const Hero = () => {
       {/* ── Vidéo de fond ── */}
       <video
         autoPlay muted loop playsInline
-        preload="metadata"
         style={{
           position: 'absolute', inset: 0,
           width: '100%', height: '100%',
           objectFit: 'cover',
           zIndex: 0,
-          backgroundColor: '#000',
         }}
       >
         <source src="/vid/hero.mov" type="video/mp4" />
