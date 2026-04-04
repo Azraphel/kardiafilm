@@ -32,44 +32,40 @@ const Hero = () => {
       {/* ── Vidéo de fond ── */}
       <video
         autoPlay muted loop playsInline
+        preload="metadata"
         style={{
           position: 'absolute', inset: 0,
           width: '100%', height: '100%',
           objectFit: 'cover',
           zIndex: 0,
+          backgroundColor: '#000',
         }}
       >
-        <source src="/vid/hero.mp4" type="video/mp4" />
+        <source src="/vid/hero.mov" type="video/mp4" />
       </video>
 
-      {/* ── Fallback gradient si pas de vidéo ── */}
-      <div
-        className="hero-gradient-bg"
-        style={{ position: 'absolute', inset: 0, zIndex: 1 }}
-      />
-
-      {/* ── Overlay sombre pour lisibilité ── */}
+      {/* ── Overlay sombre par-dessus la vidéo ── */}
       <div style={{
-        position: 'absolute', inset: 0, zIndex: 2,
-        background: 'linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.75) 100%)',
+        position: 'absolute', inset: 0, zIndex: 1,
+        background: 'linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.35) 40%, rgba(0,0,0,0.7) 100%)',
       }} />
 
       {/* ── Vignette latérale ── */}
       <div style={{
-        position: 'absolute', inset: 0, zIndex: 2,
-        background: 'radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(0,0,0,0.6) 100%)',
+        position: 'absolute', inset: 0, zIndex: 1,
+        background: 'radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(0,0,0,0.55) 100%)',
         pointerEvents: 'none',
       }} />
 
       {/* ── Grid subtile ── */}
       <div style={{
-        position: 'absolute', inset: 0, zIndex: 2, pointerEvents: 'none',
+        position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none',
         backgroundImage: `linear-gradient(rgba(168,85,247,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(168,85,247,0.04) 1px, transparent 1px)`,
         backgroundSize: '64px 64px',
       }} />
 
       {/* ── Contenu ── */}
-      <div style={{ position: 'relative', zIndex: 3, maxWidth: '860px', width: '100%', textAlign: 'center' }}>
+      <div style={{ position: 'relative', zIndex: 2, maxWidth: '860px', width: '100%', textAlign: 'center' }}>
 
         {/* Badge */}
         <div className="fade-in-up" style={{ transitionDelay: '0ms' }}>

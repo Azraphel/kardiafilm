@@ -47,7 +47,7 @@ const About = () => {
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>
               <img
-                src="/images/stephane.jpg"
+                src="/img/Photo Stephane.jpg"
                 alt="Stéphane — Fondateur Kardia Growth"
                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                 onError={e => {
