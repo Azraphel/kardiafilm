@@ -13,9 +13,9 @@ const gains = [
   {
     beforeIcon: <IconPhone color="#f87171"/>,
     afterIcon:  <IconPhone color="#a855f7"/>,
-    before: "Vous manquez un appel. Le client est déjà chez votre compétiteur.",
-    after:  "L'IA répond en 2 secondes. Le client est qualifié et réservé — pendant que vous travaillez.",
-    gain: '+1 contrat capturé', gainColor: '#a855f7',
+    before: "Un client appelle, envoie un SMS ou écrit sur Facebook. Vous êtes occupé. Il passe au suivant.",
+    after:  "L'IA répond en quelques secondes sur tous les canaux — appels, SMS, Facebook, Instagram, Google, email.",
+    gain: 'Zéro message manqué', gainColor: '#a855f7',
   },
   {
     beforeIcon: <IconX color="#f87171"/>,
@@ -27,15 +27,15 @@ const gains = [
   {
     beforeIcon: <IconMoon color="#f87171"/>,
     afterIcon:  <IconCalendar color="#a855f7"/>,
-    before: "Un lead à 21h. Vous dormez. Le lendemain, il a signé ailleurs.",
-    after:  "L'IA répond, qualifie et réserve. Le matin, le RDV est dans votre calendrier.",
+    before: "Un lead écrit à 21h sur Instagram ou par email. Le lendemain, il a signé ailleurs.",
+    after:  "L'IA répond, qualifie et réserve peu importe le canal, peu importe l'heure.",
     gain: '0 lead perdu la nuit', gainColor: '#a855f7',
   },
   {
     beforeIcon: <IconClock color="#f87171"/>,
     afterIcon:  <IconCpu color="#f59e0b"/>,
-    before: "Encore les mêmes questions. Prix, zones, disponibilités. Votre temps part en fumée.",
-    after:  "L'IA gère toutes les questions de base. Vous parlez seulement aux clients prêts à signer.",
+    before: "Encore les mêmes questions sur tous vos canaux. Prix, zones, disponibilités. Votre temps part en fumée.",
+    after:  "L'IA gère toutes les questions de base, partout. Vous parlez seulement aux clients prêts à signer.",
     gain: '2-3h récupérées / jour', gainColor: '#f59e0b',
   },
 ];
@@ -72,23 +72,41 @@ const Solution = () => {
             </span>
           </h2>
           <p style={{ fontSize: 'clamp(0.95rem,2vw,1.05rem)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.75 }}>
-            Des changements concrets dans votre quotidien.
+            Des changements concrets dans votre quotidien — sur tous vos canaux.
           </p>
         </div>
 
-        {/* Gains */}
+        {/* Canaux couverts */}
+        <div className="fade-in-up" style={{ marginBottom: 'clamp(2rem,4vw,3rem)' }}>
+          <p style={{ fontSize: '0.68rem', fontFamily: 'monospace', color: 'rgba(168,85,247,0.5)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '0.875rem' }}>
+            Canaux couverts
+          </p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+            {['📞 Appels', '💬 SMS', '📘 Facebook', '📷 Instagram', '🔍 Google', '📧 Email'].map((c, i) => (
+              <div key={i} style={{
+                padding: '0.35rem 0.875rem',
+                background: '#180d38',
+                border: '1px solid rgba(168,85,247,0.2)',
+                borderRadius: '999px',
+                fontSize: 'clamp(0.72rem,1.5vw,0.8rem)',
+                color: 'rgba(255,255,255,0.75)',
+              }}>
+                {c}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Paires avant/après */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           {gains.map((g, i) => (
             <div key={i} className="fade-in-up" style={{ transitionDelay: `${i * 70}ms` }}>
               <div style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                gap: '0',
-                borderRadius: '16px',
-                overflow: 'hidden',
+                borderRadius: '16px', overflow: 'hidden',
                 border: '1px solid rgba(255,255,255,0.08)',
               }}>
-
                 {/* Avant */}
                 <div style={{
                   background: '#16101a',
@@ -96,34 +114,14 @@ const Solution = () => {
                   padding: 'clamp(1.25rem,2.5vw,1.75rem)',
                   display: 'flex', gap: '1rem', alignItems: 'flex-start',
                 }}>
-                  <div style={{
-                    width: '40px', height: '40px', flexShrink: 0,
-                    borderRadius: '10px',
-                    background: 'rgba(248,113,113,0.1)',
-                    border: '1px solid rgba(248,113,113,0.2)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  }}>
+                  <div style={{ width: '40px', height: '40px', flexShrink: 0, borderRadius: '10px', background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     {g.beforeIcon}
                   </div>
                   <div>
-                    <p style={{
-                      fontSize: '0.6rem', fontFamily: 'monospace',
-                      color: '#f87171', letterSpacing: '0.1em',
-                      textTransform: 'uppercase', marginBottom: '0.4rem',
-                      fontWeight: 600,
-                    }}>
-                      Avant
-                    </p>
-                    <p style={{
-                      fontSize: 'clamp(0.875rem,2vw,0.975rem)',
-                      color: 'rgba(255,255,255,0.75)',
-                      lineHeight: 1.7, margin: 0,
-                    }}>
-                      {g.before}
-                    </p>
+                    <p style={{ fontSize: '0.6rem', fontFamily: 'monospace', color: '#f87171', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.4rem', fontWeight: 600 }}>Avant</p>
+                    <p style={{ fontSize: 'clamp(0.875rem,2vw,0.975rem)', color: 'rgba(255,255,255,0.75)', lineHeight: 1.7, margin: 0 }}>{g.before}</p>
                   </div>
                 </div>
-
                 {/* Après */}
                 <div style={{
                   background: '#100d22',
@@ -131,49 +129,18 @@ const Solution = () => {
                   display: 'flex', gap: '1rem', alignItems: 'flex-start',
                   position: 'relative', overflow: 'hidden',
                 }}>
-                  <div style={{
-                    position: 'absolute', top: 0, left: 0, right: 0, height: '2px',
-                    background: `linear-gradient(to right, ${g.gainColor}60, transparent)`,
-                  }} />
-                  <div style={{
-                    width: '40px', height: '40px', flexShrink: 0,
-                    borderRadius: '10px',
-                    background: `${g.gainColor}18`,
-                    border: `1px solid ${g.gainColor}35`,
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  }}>
+                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: `linear-gradient(to right, ${g.gainColor}60, transparent)` }} />
+                  <div style={{ width: '40px', height: '40px', flexShrink: 0, borderRadius: '10px', background: `${g.gainColor}18`, border: `1px solid ${g.gainColor}35`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     {g.afterIcon}
                   </div>
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem', flexWrap: 'wrap' }}>
-                      <p style={{
-                        fontSize: '0.6rem', fontFamily: 'monospace',
-                        color: g.gainColor, letterSpacing: '0.1em',
-                        textTransform: 'uppercase', margin: 0,
-                        fontWeight: 600,
-                      }}>
-                        Après
-                      </p>
-                      <span style={{
-                        fontSize: '0.58rem', fontFamily: 'monospace',
-                        color: g.gainColor, letterSpacing: '0.06em',
-                        background: `${g.gainColor}15`,
-                        border: `1px solid ${g.gainColor}25`,
-                        padding: '1px 8px', borderRadius: '999px',
-                      }}>
-                        {g.gain}
-                      </span>
+                      <p style={{ fontSize: '0.6rem', fontFamily: 'monospace', color: g.gainColor, letterSpacing: '0.1em', textTransform: 'uppercase', margin: 0, fontWeight: 600 }}>Après</p>
+                      <span style={{ fontSize: '0.58rem', fontFamily: 'monospace', color: g.gainColor, background: `${g.gainColor}15`, border: `1px solid ${g.gainColor}25`, padding: '1px 8px', borderRadius: '999px' }}>{g.gain}</span>
                     </div>
-                    <p style={{
-                      fontSize: 'clamp(0.875rem,2vw,0.975rem)',
-                      color: 'rgba(255,255,255,0.9)',
-                      lineHeight: 1.7, margin: 0,
-                    }}>
-                      {g.after}
-                    </p>
+                    <p style={{ fontSize: 'clamp(0.875rem,2vw,0.975rem)', color: 'rgba(255,255,255,0.9)', lineHeight: 1.7, margin: 0 }}>{g.after}</p>
                   </div>
                 </div>
-
               </div>
             </div>
           ))}
@@ -182,14 +149,10 @@ const Solution = () => {
         {/* CTA */}
         <div className="fade-in-up" style={{
           marginTop: 'clamp(2.5rem,5vw,3.5rem)',
-          background: '#130830',
-          border: '1px solid rgba(124,58,237,0.25)',
-          borderRadius: '20px',
-          padding: 'clamp(1.5rem,3vw,2.5rem)',
-          display: 'flex', alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '1.5rem', flexWrap: 'wrap',
-          position: 'relative', overflow: 'hidden',
+          background: '#130830', border: '1px solid rgba(124,58,237,0.25)',
+          borderRadius: '20px', padding: 'clamp(1.5rem,3vw,2.5rem)',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          gap: '1.5rem', flexWrap: 'wrap', position: 'relative', overflow: 'hidden',
         }}>
           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(to right, transparent, rgba(168,85,247,0.5), transparent)' }} />
           <div style={{ maxWidth: '520px' }}>
@@ -201,22 +164,17 @@ const Solution = () => {
             </p>
           </div>
           <a href="#contact" style={{
-            display: 'inline-block',
-            padding: 'clamp(0.875rem,2vw,1rem) clamp(1.5rem,3vw,1.875rem)',
-            background: 'linear-gradient(135deg, #7c3aed, #6d28d9)',
-            borderRadius: '999px', color: 'white',
-            fontWeight: 700, fontSize: 'clamp(0.875rem,2vw,0.95rem)',
+            display: 'inline-block', padding: 'clamp(0.875rem,2vw,1rem) clamp(1.5rem,3vw,1.875rem)',
+            background: 'linear-gradient(135deg, #7c3aed, #6d28d9)', borderRadius: '999px',
+            color: 'white', fontWeight: 700, fontSize: 'clamp(0.875rem,2vw,0.95rem)',
             textDecoration: 'none', whiteSpace: 'nowrap',
             boxShadow: '0 0 30px -8px rgba(124,58,237,0.55)',
             transition: 'transform 0.2s, box-shadow 0.2s', flexShrink: 0,
           }}
             onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.04)'; e.currentTarget.style.boxShadow = '0 0 44px -6px rgba(124,58,237,0.75)'; }}
             onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.boxShadow = '0 0 30px -8px rgba(124,58,237,0.55)'; }}
-          >
-            Je veux ce système →
-          </a>
+          >Je veux ce système →</a>
         </div>
-
       </div>
     </section>
   );
