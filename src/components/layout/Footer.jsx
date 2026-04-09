@@ -11,9 +11,17 @@ const Footer = () => (
           Kardia <span style={{ color: '#a855f7' }}>Growth</span>
         </span>
       </div>
-      <p style={{ fontSize: 'clamp(0.65rem,1.5vw,0.72rem)', color: 'rgba(255,255,255,0.15)', fontFamily: 'monospace', letterSpacing: '0.08em' }}>
-        © {new Date().getFullYear()} KARDIA GROWTH · QUÉBEC, CANADA
-      </p>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
+        <p style={{ fontSize: 'clamp(0.65rem,1.5vw,0.72rem)', color: 'rgba(255,255,255,0.15)', fontFamily: 'monospace', letterSpacing: '0.08em', margin: 0 }}>
+          © {new Date().getFullYear()} KARDIA GROWTH · QUÉBEC, CANADA
+        </p>
+        <a href="/politique-de-confidentialite" style={{ fontSize: 'clamp(0.65rem,1.5vw,0.72rem)', color: 'rgba(255,255,255,0.2)', fontFamily: 'monospace', letterSpacing: '0.08em', textDecoration: 'none', transition: 'color 0.2s' }}
+          onMouseEnter={e => e.currentTarget.style.color = 'rgba(168,85,247,0.6)'}
+          onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.2)'}
+        >
+          Politique de confidentialité
+        </a>
+      </div>
     </div>
   </footer>
 );
