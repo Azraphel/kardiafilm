@@ -1,137 +1,108 @@
 // components/sections/About.jsx
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
+import { Rev, useInView, useCounter } from '../../hooks/useReveal';
+
+const StatNum = ({ n, suffix, label, active }) => {
+  const v = useCounter(n, 1600, active);
+  return (
+    <div style={{ textAlign: 'center' }}>
+      <div style={{ fontFamily: "'DM Serif Display', serif", fontSize: 'clamp(28px,3.5vw,44px)', lineHeight: 1, background: 'linear-gradient(to right, #c084fc, #f59e0b)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+        {v}{suffix}
+      </div>
+      <div style={{ fontFamily: 'monospace', fontSize: '10px', color: 'rgba(255,255,255,.3)', marginTop: '5px', lineHeight: 1.4 }}>{label}</div>
+    </div>
+  );
+};
 
 const About = () => {
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    const els = sectionRef.current?.querySelectorAll('.fade-in-up');
-    if (!els) return;
-    const observer = new IntersectionObserver(
-      entries => entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
-      }),
-      { threshold: 0.1 }
-    );
-    els.forEach(el => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
+  const [sRef, sInView] = useInView(0.3);
 
   return (
-    <section ref={sectionRef} style={{
-      padding: 'clamp(4rem,8vw,7rem) clamp(1rem,4vw,1.5rem)',
-      background: 'linear-gradient(to bottom, #000, #08030f, #000)',
-      position: 'relative', overflow: 'hidden',
-    }}>
-      <div style={{ position: 'absolute', left: '-60px', top: '30%', width: '400px', height: '400px', background: 'radial-gradient(ellipse, rgba(124,58,237,0.06) 0%, transparent 70%)', pointerEvents: 'none' }} />
+    <section style={{ background: 'var(--dark2)', padding: 'clamp(80px,10vw,130px) clamp(20px,5vw,80px)', overflow: 'hidden', position: 'relative' }}>
 
-      <div style={{
-        maxWidth: '860px', margin: '0 auto',
-        display: 'flex', flexDirection: 'row',
-        alignItems: 'center',
-        gap: 'clamp(2rem,5vw,4rem)',
-        flexWrap: 'wrap',
-      }}>
+      {/* Glow */}
+      <div style={{ position: 'absolute', right: '-100px', top: '20%', width: '500px', height: '500px', background: 'radial-gradient(ellipse, rgba(124,58,237,.08) 0%, transparent 65%)', pointerEvents: 'none' }} />
 
-        {/* Photo */}
-        <div className="fade-in-up" style={{ flexShrink: 0 }}>
+      <div style={{ maxWidth: '1040px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'clamp(200px,30%,340px) 1fr', gap: 'clamp(40px,8vw,100px)', alignItems: 'center' }}>
+
+        {/* Photo column */}
+        <Rev>
           <div style={{ position: 'relative' }}>
-            <div style={{ position: 'absolute', inset: '-10px', borderRadius: 'clamp(18px,3vw,26px)', border: '1px solid rgba(168,85,247,0.15)', zIndex: 0 }} />
-            <div style={{
-              width: 'clamp(140px,22vw,200px)', aspectRatio: '3 / 4',
-              borderRadius: 'clamp(16px,2.5vw,22px)', overflow: 'hidden',
-              position: 'relative', zIndex: 1,
-              background: 'linear-gradient(145deg, #1a0835, #0a0318)',
-              border: '1px solid rgba(168,85,247,0.2)',
-              boxShadow: '0 0 50px -15px rgba(124,58,237,0.35)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-            }}>
-              <img
-                src="/img/Photo Stephane.jpg"
-                alt="Stéphane — Fondateur Kardia Growth"
-                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                onError={e => {
-                  e.target.style.display = 'none';
-                  const parent = e.target.parentElement;
-                  if (parent && !parent.querySelector('.photo-fb')) {
-                    const fb = document.createElement('div');
-                    fb.className = 'photo-fb';
-                    fb.style.cssText = 'display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;width:100%;height:100%;padding:1rem';
-                    const ini = document.createElement('span');
-                    ini.textContent = 'S';
-                    ini.style.cssText = 'font-size:clamp(2.5rem,8vw,4rem);font-weight:800;font-family:monospace;background:linear-gradient(135deg,#a855f7,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1';
-                    const lbl = document.createElement('span');
-                    lbl.textContent = 'Photo à venir';
-                    lbl.style.cssText = 'font-size:0.6rem;font-family:monospace;color:rgba(168,85,247,0.4);letter-spacing:0.12em;text-transform:uppercase;text-align:center';
-                    fb.appendChild(ini); fb.appendChild(lbl);
-                    parent.appendChild(fb);
-                  }
-                }}
-              />
-            </div>
-            {/* Badge */}
-            <div style={{
-              position: 'absolute', bottom: '-1rem', right: '-1rem', zIndex: 2,
-              background: '#0f0620', border: '1px solid rgba(168,85,247,0.25)',
-              borderRadius: '10px', padding: '0.5rem 0.875rem',
-              boxShadow: '0 0 20px -5px rgba(124,58,237,0.3)',
-            }}>
-              <p style={{ fontFamily: 'monospace', fontSize: '0.55rem', color: '#a855f7', letterSpacing: '0.12em', textTransform: 'uppercase', margin: 0 }}>● Fondateur</p>
-              <p style={{ fontSize: 'clamp(0.75rem,1.5vw,0.85rem)', color: 'white', fontWeight: 700, margin: '0.15rem 0 0' }}>Kardia Growth</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Texte */}
-        <div className="fade-in-up" style={{ transitionDelay: '80ms', flex: 1, minWidth: 'clamp(260px,40vw,300px)' }}>
-
-          <p style={{ fontFamily: 'monospace', fontSize: '0.65rem', color: 'rgba(168,85,247,0.6)', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '0.875rem' }}>
-            ● Qui je suis
-          </p>
-
-          <h2 style={{ fontSize: 'clamp(1.5rem,4vw,2.5rem)', fontWeight: 800, color: 'white', letterSpacing: '-0.025em', lineHeight: 1.1, marginBottom: '1.25rem' }}>
-            Stéphane
-          </h2>
-
-          {/* Vision */}
-          <blockquote style={{ borderLeft: '3px solid #a855f7', paddingLeft: 'clamp(0.875rem,2vw,1.25rem)', margin: '0 0 1.25rem 0' }}>
-            <p style={{ fontSize: 'clamp(1rem,2.5vw,1.2rem)', color: 'white', fontWeight: 600, lineHeight: 1.55 }}>
-              "Les entrepreneurs devraient passer leur temps à faire ce qu'ils font de mieux. Pas à répondre au téléphone."
-            </p>
-          </blockquote>
-
-          {/* Bio repositionnée sur les résultats */}
-          <p style={{ fontSize: 'clamp(0.875rem,2vw,0.975rem)', color: 'rgba(255,255,255,0.6)', lineHeight: 1.8, marginBottom: '1.5rem' }}>
-            J'ai passé des années à observer pourquoi les compagnies de service perdent des contrats. La réponse était toujours la même : pas de système pour capturer et convertir les leads. Kardia Growth existe pour régler exactement ça.
-          </p>
-
-          {/* Stats repositionnées — résultats, pas background */}
-          <div style={{
-            display: 'flex', gap: 'clamp(1.25rem,3vw,2rem)',
-            paddingTop: '1.25rem',
-            borderTop: '1px solid rgba(255,255,255,0.07)',
-            flexWrap: 'wrap',
-          }}>
-            {[
-              { val: '39x',      label: 'ROI · client ProNett' },
-              { val: '7 500 $+', label: 'revenus générés en 30j' },
-              { val: '< 7 jrs',  label: 'pour être opérationnel' },
-            ].map((s, i) => (
-              <div key={i}>
-                <div style={{
-                  fontSize: 'clamp(1rem,2.5vw,1.4rem)', fontWeight: 800,
-                  background: 'linear-gradient(to right, #c084fc, #f59e0b)',
-                  WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text', lineHeight: 1, marginBottom: '0.2rem',
-                }}>
-                  {s.val}
-                </div>
-                <div style={{ fontSize: 'clamp(0.65rem,1.3vw,0.75rem)', color: 'rgba(255,255,255,0.4)' }}>
-                  {s.label}
-                </div>
+            {/* Border gradient frame */}
+            <div style={{ padding: '2px', borderRadius: '16px', background: 'linear-gradient(135deg, rgba(124,58,237,.5), rgba(245,158,11,.3), rgba(124,58,237,.1))', display: 'inline-block', width: '100%' }}>
+              <div style={{ borderRadius: '14px', overflow: 'hidden', background: 'var(--dark3)', aspectRatio: '3/4', position: 'relative' }}>
+                <img
+                  src="/img/Photo Stephane.jpg"
+                  alt="Stéphane — Fondateur Kardia Growth"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center', display: 'block' }}
+                  onError={e => {
+                    e.target.style.display = 'none';
+                    const p = e.target.parentElement;
+                    if (p && !p.querySelector('.fb')) {
+                      const fb = document.createElement('div');
+                      fb.className = 'fb';
+                      fb.style.cssText = 'display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:8px';
+                      const ini = document.createElement('div');
+                      ini.textContent = 'S';
+                      ini.style.cssText = "font-family:'DM Serif Display',serif;font-size:5rem;background:linear-gradient(135deg,#a855f7,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text";
+                      const lbl = document.createElement('div');
+                      lbl.textContent = 'Photo à venir';
+                      lbl.style.cssText = 'font-family:monospace;font-size:0.6rem;color:rgba(168,85,247,.4);letter-spacing:.12em;text-transform:uppercase';
+                      fb.appendChild(ini); fb.appendChild(lbl);
+                      p.appendChild(fb);
+                    }
+                  }}
+                />
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(6,6,8,.6) 0%, transparent 50%)' }} />
               </div>
-            ))}
+            </div>
+
+            {/* Badge fondateur */}
+            <div style={{ position: 'absolute', bottom: '-16px', right: '-16px', background: 'var(--dark)', border: '1px solid rgba(168,85,247,.25)', borderRadius: '10px', padding: '10px 16px', boxShadow: '0 0 30px -8px rgba(124,58,237,.4)' }}>
+              <div style={{ fontFamily: 'monospace', fontSize: '9px', color: '#a855f7', letterSpacing: '.12em', textTransform: 'uppercase' }}>● Fondateur</div>
+              <div style={{ fontFamily: "'DM Serif Display', serif", fontSize: '15px', color: 'white', marginTop: '2px' }}>Kardia Growth</div>
+            </div>
           </div>
+        </Rev>
+
+        {/* Text column */}
+        <div>
+          <Rev><div className="kg-tag">Qui je suis</div></Rev>
+
+          <Rev delay={1}>
+            <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 'clamp(32px,4vw,56px)', lineHeight: 1.06, letterSpacing: '-.025em', marginBottom: '24px' }}>
+              Stéphane
+            </h2>
+          </Rev>
+
+          <Rev delay={2}>
+            <blockquote style={{ borderLeft: '3px solid #7c3aed', paddingLeft: 'clamp(16px,2vw,24px)', marginBottom: '24px' }}>
+              <p style={{ fontFamily: "'DM Serif Display', serif", fontStyle: 'italic', fontSize: 'clamp(17px,2.5vw,22px)', color: 'white', lineHeight: 1.5, fontWeight: 400 }}>
+                "Les entrepreneurs devraient passer leur temps à faire ce qu'ils font de mieux. Pas à répondre au téléphone."
+              </p>
+            </blockquote>
+          </Rev>
+
+          <Rev delay={3}>
+            <p style={{ fontSize: 'clamp(14px,1.8vw,16px)', color: 'rgba(255,255,255,.5)', lineHeight: 1.82, marginBottom: '32px', fontWeight: 300 }}>
+              J'ai passé des années à observer pourquoi les compagnies de service perdent des contrats. La réponse était toujours la même : pas de système pour capturer et convertir les leads. Kardia Growth existe pour régler exactement ça.
+            </p>
+          </Rev>
+
+          {/* Stats */}
+          <Rev delay={4}>
+            <div ref={sRef} style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1px', background: 'rgba(255,255,255,.06)', border: '1px solid rgba(255,255,255,.07)', borderRadius: '10px', overflow: 'hidden', padding: '0' }}>
+              {[
+                { n: 39, suffix: 'x',  label: 'ROI · ProNett' },
+                { n: 7,  suffix: ' jrs', label: 'pour déployer' },
+                { n: 5,  suffix: '+',  label: 'ans d\'expérience' },
+              ].map((s, i) => (
+                <div key={i} style={{ padding: 'clamp(16px,2.5vw,24px)', background: 'var(--dark3)', borderRight: i < 2 ? '1px solid rgba(255,255,255,.06)' : 'none' }}>
+                  <StatNum {...s} active={sInView} />
+                </div>
+              ))}
+            </div>
+          </Rev>
         </div>
       </div>
     </section>

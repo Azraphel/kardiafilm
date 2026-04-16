@@ -2,25 +2,29 @@
 import React from 'react';
 
 const Footer = () => (
-  <footer style={{ padding: 'clamp(1.75rem,3vw,2.5rem) clamp(1rem,4vw,1.5rem)', borderTop: '1px solid rgba(255,255,255,0.04)', background: '#000', position: 'relative' }}>
-    <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(to right, transparent, rgba(124,58,237,0.2), transparent)' }} />
-    <div style={{ maxWidth: '860px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
-        <div style={{ width: '28px', height: '28px', borderRadius: '7px', background: 'linear-gradient(135deg, #7c3aed, #a855f7)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.875rem', color: 'white', fontFamily: 'monospace', flexShrink: 0 }}>K</div>
-        <span style={{ fontWeight: 700, fontSize: 'clamp(0.875rem,2vw,0.95rem)', color: 'white', letterSpacing: '-0.01em' }}>
-          Kardia <span style={{ color: '#a855f7' }}>Growth</span>
-        </span>
+  <footer style={{ background: 'var(--dark)', borderTop: '1px solid rgba(255,255,255,.06)', padding: 'clamp(20px,3vw,32px) clamp(20px,5vw,80px)', position: 'relative' }}>
+    <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(124,58,237,.25), rgba(245,158,11,.15), transparent)' }} />
+    <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
+      {/* Logo */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <div style={{ width: '28px', height: '28px', borderRadius: '6px', background: 'linear-gradient(135deg, #7c3aed, #f59e0b)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '13px', color: 'white', fontFamily: 'monospace', flexShrink: 0 }}>K</div>
+        <span style={{ fontFamily: 'monospace', fontWeight: 700, fontSize: '13px', color: 'white' }}>Kardia <span style={{ color: '#7c3aed' }}>Growth</span></span>
       </div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
-        <p style={{ fontSize: 'clamp(0.65rem,1.5vw,0.72rem)', color: 'rgba(255,255,255,0.15)', fontFamily: 'monospace', letterSpacing: '0.08em', margin: 0 }}>
-          © {new Date().getFullYear()} KARDIA GROWTH · QUÉBEC, CANADA
-        </p>
-        <a href="/politique-de-confidentialite" style={{ fontSize: 'clamp(0.65rem,1.5vw,0.72rem)', color: 'rgba(255,255,255,0.2)', fontFamily: 'monospace', letterSpacing: '0.08em', textDecoration: 'none', transition: 'color 0.2s' }}
-          onMouseEnter={e => e.currentTarget.style.color = 'rgba(168,85,247,0.6)'}
-          onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.2)'}
-        >
-          Politique de confidentialité
-        </a>
+
+      {/* Links */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(16px,3vw,32px)', flexWrap: 'wrap' }}>
+        {[
+          { href: '/roadmap', label: 'Roadmap gratuit' },
+          { href: '/politique-de-confidentialite', label: 'Politique de confidentialité' },
+        ].map((link, i) => (
+          <a key={i} href={link.href} style={{ fontFamily: 'monospace', fontSize: '11px', color: 'rgba(255,255,255,.2)', textDecoration: 'none', letterSpacing: '.04em', transition: 'color .2s' }}
+            onMouseEnter={e => e.currentTarget.style.color = 'rgba(168,85,247,.6)'}
+            onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,.2)'}
+          >{link.label}</a>
+        ))}
+        <span style={{ fontFamily: 'monospace', fontSize: '11px', color: 'rgba(255,255,255,.15)', letterSpacing: '.06em' }}>
+          © {new Date().getFullYear()} KARDIA GROWTH · QUÉBEC
+        </span>
       </div>
     </div>
   </footer>

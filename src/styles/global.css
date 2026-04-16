@@ -1,0 +1,146 @@
+/* ─────────────────────────────────────────────
+   KARDIA GROWTH — Global Design System
+   Même typographie et variables que le roadmap
+───────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap');
+
+:root {
+  --v:      #7c3aed;
+  --v2:     #a855f7;
+  --v3:     #c084fc;
+  --a:      #f59e0b;
+  --a2:     #f97316;
+  --dark:   #060608;
+  --dark2:  #0c0b12;
+  --dark3:  #100f1a;
+  --dark4:  #16101e;
+  --text:   rgba(255,255,255,.55);
+  --dim:    rgba(255,255,255,.28);
+  --border: rgba(255,255,255,.07);
+  --border2:rgba(255,255,255,.12);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--dark);
+  color: #fff;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Typography ── */
+.serif    { font-family: 'DM Serif Display', serif; }
+.mono     { font-family: monospace; }
+
+h1, h2, h3 { font-family: 'DM Serif Display', serif; line-height: 1.06; letter-spacing: -.025em; }
+p { font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.8; }
+
+/* ── Reveal animations ── */
+.rev {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.rev.on { opacity: 1; transform: none; }
+.rev.d1 { transition-delay: .1s; }
+.rev.d2 { transition-delay: .2s; }
+.rev.d3 { transition-delay: .3s; }
+.rev.d4 { transition-delay: .4s; }
+
+/* ── Gradient divider ── */
+.grad-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(124,58,237,.35), rgba(245,158,11,.2), transparent);
+}
+
+/* ── Tag pill ── */
+.kg-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #a78bfa;
+  background: rgba(124,58,237,.1);
+  border: 1px solid rgba(124,58,237,.22);
+  padding: 5px 13px;
+  border-radius: 100px;
+  margin-bottom: 20px;
+}
+.kg-tag::before {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--v);
+  animation: kg-blink 2s ease infinite;
+  flex-shrink: 0;
+}
+@keyframes kg-blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+/* ── Buttons ── */
+.btn-primary {
+  display: inline-block;
+  padding: clamp(14px,2vw,18px) clamp(28px,3vw,40px);
+  background: linear-gradient(135deg, var(--v), #6d28d9);
+  border-radius: 8px;
+  color: white;
+  font-family: monospace;
+  font-weight: 700;
+  font-size: clamp(13px,1.5vw,15px);
+  text-decoration: none;
+  border: 1px solid rgba(168,85,247,.3);
+  box-shadow: 0 0 40px -10px rgba(124,58,237,.6);
+  transition: transform .2s, box-shadow .2s;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 60px -8px rgba(124,58,237,.8);
+}
+
+.btn-ghost {
+  display: inline-block;
+  padding: clamp(14px,2vw,18px) clamp(28px,3vw,40px);
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 8px;
+  color: rgba(255,255,255,.7);
+  font-family: monospace;
+  font-weight: 600;
+  font-size: clamp(13px,1.5vw,15px);
+  text-decoration: none;
+  backdrop-filter: blur(8px);
+  transition: border-color .2s, background .2s, color .2s;
+}
+.btn-ghost:hover {
+  border-color: rgba(168,85,247,.4);
+  background: rgba(124,58,237,.1);
+  color: white;
+}
+
+/* ── Grain ── */
+.film-grain {
+  position: fixed; inset: 0; z-index: 999;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity: .012;
+  mix-blend-mode: overlay;
+}
+
+/* ── Stat shimmer ── */
+.stat-shimmer {
+  background: linear-gradient(to right, var(--v3), var(--a));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: rgba(124,58,237,.3); border-radius: 2px; }

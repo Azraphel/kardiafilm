@@ -1,160 +1,174 @@
 // components/sections/Hero.jsx
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-const useFadeIn = () => {
+function useCounter(n, dur = 1800, active = false) {
+  const [v, setV] = useState(0);
   useEffect(() => {
-    const els = document.querySelectorAll('.fade-in-up');
-    const observer = new IntersectionObserver(
-      entries => entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
-      }),
-      { threshold: 0.1 }
-    );
-    els.forEach(el => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
+    if (!active) return;
+    let t0 = null;
+    const tick = ts => {
+      if (!t0) t0 = ts;
+      const p = Math.min((ts - t0) / dur, 1);
+      setV(Math.round(n * (1 - Math.pow(1 - p, 3))));
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }, [active, n, dur]);
+  return v;
+}
+
+const channels = ['Appels', 'SMS', 'Facebook', 'Instagram', 'Google', 'Email'];
+
+const StatItem = ({ val, label, active, isString }) => {
+  const num = isString ? 0 : parseInt(val);
+  const suffix = isString ? '' : val.replace(/[0-9]/g, '');
+  const counted = useCounter(num, 1600, active);
+  return (
+    <div style={{ textAlign: 'center', padding: '0 clamp(12px,2vw,28px)' }}>
+      <div style={{
+        fontFamily: "'DM Serif Display', serif",
+        fontSize: 'clamp(28px,4vw,52px)',
+        lineHeight: 1, letterSpacing: '-.03em',
+        background: 'linear-gradient(to right, #c084fc, #f59e0b)',
+        WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
+      }}>
+        {isString ? val : `${counted}${suffix}`}
+      </div>
+      <div style={{ fontFamily: 'monospace', fontSize: '11px', color: 'rgba(255,255,255,.3)', marginTop: '6px', lineHeight: 1.45 }}>{label}</div>
+    </div>
+  );
 };
 
-// Icônes des canaux
-const channels = [
-  { label: 'Appels' },
-  { label: 'SMS' },
-  { label: 'Facebook' },
-  { label: 'Instagram' },
-  { label: 'Google' },
-  { label: 'Email' },
-];
-
 const Hero = () => {
-  useFadeIn();
+  const statsRef = useRef(null);
+  const [statsVisible, setStatsVisible] = useState(false);
+  const [revealIdx, setRevealIdx] = useState(0);
+
+  useEffect(() => {
+    // Staggered reveal
+    const timers = [0, 100, 200, 320, 440].map((delay, i) =>
+      setTimeout(() => setRevealIdx(i + 1), delay + 200)
+    );
+
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { setStatsVisible(true); obs.disconnect(); }
+    }, { threshold: 0.3 });
+    if (statsRef.current) obs.observe(statsRef.current);
+
+    return () => { timers.forEach(clearTimeout); obs.disconnect(); };
+  }, []);
+
+  const rev = (i) => ({
+    opacity: revealIdx >= i ? 1 : 0,
+    transform: revealIdx >= i ? 'translateY(0)' : 'translateY(28px)',
+    transition: 'opacity .7s ease, transform .7s ease',
+  });
 
   return (
     <section style={{
       minHeight: '100vh',
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      display: 'flex', flexDirection: 'column',
+      alignItems: 'center', justifyContent: 'center',
+      textAlign: 'center',
+      padding: 'clamp(100px,12vw,140px) clamp(20px,5vw,80px) clamp(60px,8vw,100px)',
       position: 'relative', overflow: 'hidden',
-      padding: 'clamp(6rem,12vw,9rem) clamp(1rem,4vw,1.5rem) clamp(3rem,6vw,5rem)',
+      background: 'radial-gradient(ellipse 80% 60% at 50% 30%, rgba(124,58,237,.13) 0%, transparent 70%), #060608',
     }}>
 
       {/* Vidéo de fond */}
-      <video autoPlay muted loop playsInline style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0 }}>
+      <video autoPlay muted loop playsInline style={{
+        position: 'absolute', inset: 0, width: '100%', height: '100%',
+        objectFit: 'cover', zIndex: 0, opacity: .18,
+      }}>
         <source src="/vid/hero.mp4" type="video/mp4" />
       </video>
 
-      {/* Overlay */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: 1, background: 'linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.35) 40%, rgba(0,0,0,0.7) 100%)' }} />
-      <div style={{ position: 'absolute', inset: 0, zIndex: 1, background: 'radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(0,0,0,0.55) 100%)', pointerEvents: 'none' }} />
-      <div style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none', backgroundImage: `linear-gradient(rgba(168,85,247,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(168,85,247,0.04) 1px, transparent 1px)`, backgroundSize: '64px 64px' }} />
+      {/* Overlays */}
+      <div style={{ position: 'absolute', inset: 0, zIndex: 1, background: 'radial-gradient(ellipse 70% 70% at 50% 50%, transparent 30%, rgba(6,6,8,.9) 100%)' }} />
+      <div style={{ position: 'absolute', inset: 0, zIndex: 1, backgroundImage: `linear-gradient(rgba(124,58,237,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(124,58,237,.04) 1px, transparent 1px)`, backgroundSize: '72px 72px', pointerEvents: 'none' }} />
 
-      {/* Contenu */}
-      <div style={{ position: 'relative', zIndex: 2, maxWidth: '860px', width: '100%', textAlign: 'center' }}>
+      {/* Watermark */}
+      <div style={{ position: 'absolute', bottom: '-40px', left: '50%', transform: 'translateX(-50%)', fontFamily: "'DM Serif Display', serif", fontSize: 'clamp(200px,30vw,480px)', color: 'rgba(124,58,237,.028)', lineHeight: 1, pointerEvents: 'none', userSelect: 'none', letterSpacing: '-.05em', zIndex: 1, whiteSpace: 'nowrap' }}>
+        IA
+      </div>
 
-        {/* Badge */}
-        <div className="fade-in-up" style={{ transitionDelay: '0ms' }}>
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-            padding: '0.375rem clamp(0.75rem,2vw,1.125rem)',
-            background: 'rgba(124,58,237,0.15)', border: '1px solid rgba(124,58,237,0.4)',
-            borderRadius: '999px', marginBottom: 'clamp(1.5rem,4vw,2.5rem)',
-            backdropFilter: 'blur(12px)',
-          }}>
-            <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#a855f7', display: 'inline-block', boxShadow: '0 0 8px #a855f7', flexShrink: 0 }} />
-            <span style={{ fontSize: 'clamp(0.6rem,1.5vw,0.72rem)', color: '#c084fc', fontFamily: 'monospace', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
-              Compagnies de nettoyage · Québec
-            </span>
+      {/* Content */}
+      <div style={{ position: 'relative', zIndex: 2, maxWidth: '900px', width: '100%' }}>
+
+        <div style={rev(1)}>
+          <div className="kg-tag" style={{ margin: '0 auto 28px' }}>
+            Compagnies de nettoyage · Québec
           </div>
         </div>
 
-        {/* Titre */}
-        <div className="fade-in-up" style={{ transitionDelay: '80ms' }}>
-          <h1 style={{ fontSize: 'clamp(1.875rem,6vw,4.5rem)', fontWeight: 800, lineHeight: 1.05, letterSpacing: '-0.035em', marginBottom: 0 }}>
-            <span style={{ display: 'block', background: 'linear-gradient(to right, #c084fc, #a855f7)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-              30 à 40% de rendez-vous de plus.
-            </span>
-            <span style={{ display: 'block', color: 'white' }}>Zéro employé supplémentaire.</span>
+        <div style={rev(2)}>
+          <h1 style={{
+            fontFamily: "'DM Serif Display', serif",
+            fontSize: 'clamp(38px,7vw,88px)',
+            lineHeight: 1.02, letterSpacing: '-.025em',
+            marginBottom: '24px',
+          }}>
+            <span style={{ display: 'block', color: 'white' }}>30 à 40% de rendez-vous de plus.</span>
+            <span style={{ display: 'block', color: 'rgba(255,255,255,.45)', fontStyle: 'italic' }}>Zéro employé supplémentaire.</span>
             <span style={{ display: 'block', background: 'linear-gradient(to right, #f59e0b, #f97316)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
               Opérationnel en 7 jours.
             </span>
           </h1>
         </div>
 
-        {/* Sous-titre */}
-        <div className="fade-in-up" style={{ transitionDelay: '160ms' }}>
-          <p style={{ fontSize: 'clamp(0.95rem,2.5vw,1.2rem)', color: 'rgba(255,255,255,0.65)', lineHeight: 1.75, maxWidth: '600px', margin: 'clamp(1.25rem,3vw,2rem) auto 0' }}>
-            On installe un réceptionniste IA dans votre compagnie de nettoyage. Il répond à tous vos messages — appels, SMS, emails, Facebook, Instagram et Google — 24h/24, 7j/7.
+        <div style={rev(3)}>
+          <p style={{
+            fontSize: 'clamp(15px,2vw,18px)',
+            color: 'rgba(255,255,255,.4)',
+            maxWidth: '560px', margin: '0 auto 16px',
+            lineHeight: 1.78, fontWeight: 300,
+          }}>
+            On installe un réceptionniste IA dans votre compagnie. Il répond à tous vos messages — 24h/24, 7j/7.
           </p>
-        </div>
-
-        {/* Canaux */}
-        <div className="fade-in-up" style={{ transitionDelay: '220ms', marginTop: 'clamp(1.25rem,3vw,2rem)' }}>
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '0.5rem' }}>
+          {/* Channels */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '8px', marginBottom: '40px' }}>
             {channels.map((c, i) => (
-              <div key={i} style={{
-                padding: '0.3rem 0.875rem',
-                background: 'rgba(255,255,255,0.07)',
-                border: '1px solid rgba(255,255,255,0.12)',
-                borderRadius: '999px',
-                backdropFilter: 'blur(8px)',
-                fontSize: 'clamp(0.65rem,1.5vw,0.75rem)',
-                color: 'rgba(255,255,255,0.7)',
-                fontFamily: 'monospace', letterSpacing: '0.06em',
-              }}>
-                {c.label}
-              </div>
+              <span key={i} style={{
+                fontFamily: 'monospace', fontSize: '11px',
+                color: 'rgba(255,255,255,.5)',
+                background: 'rgba(255,255,255,.06)',
+                border: '1px solid rgba(255,255,255,.1)',
+                padding: '4px 12px', borderRadius: '100px',
+              }}>{c}</span>
             ))}
           </div>
         </div>
 
-        {/* CTAs */}
-        <div className="fade-in-up" style={{ transitionDelay: '280ms', display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap', marginTop: 'clamp(1.75rem,4vw,2.5rem)' }}>
-          <a href="#contact" style={{
-            padding: 'clamp(0.875rem,2vw,1.125rem) clamp(1.5rem,4vw,2.25rem)',
-            background: 'linear-gradient(135deg, #7c3aed, #6d28d9)',
-            borderRadius: '999px', color: 'white', fontWeight: 700,
-            fontSize: 'clamp(0.875rem,2vw,1rem)', textDecoration: 'none',
-            boxShadow: '0 0 40px -8px rgba(124,58,237,0.7)',
-            border: '1px solid rgba(168,85,247,0.3)',
-            transition: 'transform 0.2s, box-shadow 0.2s',
-          }}
-            onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.05)'; e.currentTarget.style.boxShadow = '0 0 60px -6px rgba(124,58,237,0.9)'; }}
-            onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.boxShadow = '0 0 40px -8px rgba(124,58,237,0.7)'; }}
-          >
-            Voir si ça marche pour moi →
-          </a>
-          <a href="#etude-de-cas" style={{
-            padding: 'clamp(0.875rem,2vw,1.125rem) clamp(1.5rem,4vw,2.25rem)',
-            background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.2)',
-            borderRadius: '999px', color: 'white', fontWeight: 600,
-            fontSize: 'clamp(0.875rem,2vw,1rem)', textDecoration: 'none',
-            backdropFilter: 'blur(12px)', transition: 'border-color 0.2s, background 0.2s',
-          }}
-            onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(168,85,247,0.5)'; e.currentTarget.style.background = 'rgba(168,85,247,0.12)'; }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'; e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; }}
-          >
-            Voir les résultats ProNett
-          </a>
+        <div style={rev(4)}>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '14px', flexWrap: 'wrap', marginBottom: 'clamp(48px,7vw,80px)' }}>
+            <a href="#contact" className="btn-primary">Voir si ça marche pour moi →</a>
+            <a href="#etude-de-cas" className="btn-ghost">Voir les résultats ProNett</a>
+          </div>
         </div>
 
         {/* Stats */}
-        <div className="fade-in-up" style={{ transitionDelay: '360ms', marginTop: 'clamp(2.5rem,5vw,4rem)' }}>
+        <div ref={statsRef} style={rev(5)}>
           <div style={{
             display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
-            background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.1)',
-            borderRadius: '16px', overflow: 'hidden', backdropFilter: 'blur(16px)',
-            maxWidth: '540px', margin: '0 auto',
+            background: 'rgba(255,255,255,.03)',
+            border: '1px solid rgba(255,255,255,.08)',
+            borderRadius: '12px', overflow: 'hidden',
+            backdropFilter: 'blur(20px)',
+            maxWidth: '560px', margin: '0 auto',
+            position: 'relative',
           }}>
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(124,58,237,.5), rgba(245,158,11,.3), transparent)' }} />
             {[
-              { val: '39x',      sub: 'ROI · ProNett' },
-              { val: '25%→5%',   sub: 'no-shows' },
-              { val: '7 500 $+', sub: 'en 30 jours' },
-            ].map((item, i) => (
-              <div key={i} style={{ padding: 'clamp(1rem,2.5vw,1.375rem) 0.75rem', textAlign: 'center', borderRight: i < 2 ? '1px solid rgba(255,255,255,0.08)' : 'none' }}>
-                <div className="stat-shimmer" style={{ fontSize: 'clamp(0.95rem,2.5vw,1.35rem)', fontWeight: 800, letterSpacing: '-0.02em' }}>{item.val}</div>
-                <div style={{ fontSize: 'clamp(0.55rem,1.2vw,0.65rem)', color: 'rgba(255,255,255,0.45)', fontFamily: 'monospace', letterSpacing: '0.06em', marginTop: '0.2rem' }}>{item.sub}</div>
+              { val: '39x',    label: 'ROI · ProNett', isString: true },
+              { val: '25%',    label: 'no-shows → 5%' },
+              { val: '7500$+', label: 'en 30 jours', isString: true },
+            ].map((s, i) => (
+              <div key={i} style={{ padding: 'clamp(18px,3vw,28px) 0', borderRight: i < 2 ? '1px solid rgba(255,255,255,.07)' : 'none' }}>
+                <StatItem {...s} active={statsVisible} />
               </div>
             ))}
           </div>
-          <p style={{ marginTop: '1rem', fontSize: '0.68rem', color: 'rgba(255,255,255,0.3)', fontFamily: 'monospace', letterSpacing: '0.07em' }}>
+          <p style={{ fontFamily: 'monospace', fontSize: '10px', color: 'rgba(255,255,255,.2)', marginTop: '12px', letterSpacing: '.06em' }}>
             Résultats réels · ProNett · Grand Montréal · 30 jours
           </p>
         </div>
