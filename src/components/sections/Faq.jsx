@@ -8,7 +8,7 @@ const faqs = [
   { q: "Est-ce que mes clients vont savoir que c'est une IA ?", a: "C'est votre choix. On configure selon votre préférence. Légalement au Québec, il n'y a pas d'obligation de divulguer — mais on peut le faire si vous le souhaitez." },
   { q: "Combien de temps pour que ce soit en ligne ?", a: "Entre 3 et 7 jours ouvrables selon la complexité. On a déjà déployé en 48 heures pour des clients pressés." },
   { q: "Est-ce que ça marche avec mon calendrier actuel ?", a: "Oui. Google Calendar, Calendly, Jobber, ServiceTitan, et la plupart des outils de l'industrie du nettoyage au Québec. On vérifie lors de l'appel de diagnostic." },
-  { q: "C'est quoi la garantie si ça ne marche pas ?", a: "Garantie 30 jours. Si le système ne capture pas au minimum 5 leads supplémentaires, on continue gratuitement jusqu'à ce que ce soit le cas." },
+  { q: "C'est quoi la garantie si ça ne marche pas ?", a: "Garantie 30 jours. Si le Système Kardia ne capture pas au minimum 5 leads supplémentaires, on continue gratuitement jusqu'à ce que ce soit le cas." },
 ];
 
 const FAQItem = ({ faq, isOpen, onToggle, i }) => (

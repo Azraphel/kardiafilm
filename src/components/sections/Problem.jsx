@@ -4,9 +4,9 @@ import { Rev } from '../../hooks/useReveal';
 
 const problems = [
   { num: '01', title: "Un client qui ne peut pas vous rejoindre n'attendra pas.", body: "Il va appeler le prochain sur Google. Pas parce que vous êtes moins bons — parce que vous n'avez pas répondu. Dans le nettoyage, le premier qui répond obtient le contrat.", truth: "La vitesse de réponse, c'est votre avantage compétitif le plus sous-estimé." },
-  { num: '02', title: "Chaque no-show coûte plus qu'un rendez-vous manqué.", body: "C'est une équipe déplacée, du temps perdu, une journée désorganisée. Le no-show c'est un symptôme : personne n'a recueilli d'engagement concret à la réservation.", truth: "Un dépôt ou une confirmation de carte élimine 80% des no-shows." },
-  { num: '03', title: "Vous passez vos journées à répondre aux mêmes questions.", body: "Prix, disponibilités, zones de service. Des questions légitimes — mais répétitives. Chaque heure passée au téléphone, c'est une heure que vous ne passez pas à gérer votre compagnie.", truth: "Ce n'est pas votre rôle de répondre à des questions de base 24/7." },
-  { num: '04', title: "Vos leads de soir et de fin de semaine disparaissent.", body: "La plupart des décisions de nettoyage se prennent en dehors des heures de bureau. Si personne ne répond à 19h un vendredi, ce lead est parti. Pour toujours.", truth: "40% des demandes arrivent en dehors des heures normales de travail." },
+  { num: '02', title: "Chaque soumission sans suivi, c'est un contrat perdu.", body: "Un prospect qui demande une soumission et qui ne reçoit pas de rappel dans l'heure signe ailleurs. La plupart des compagnies rappellent 24 à 48 heures plus tard. Le contrat est déjà signé.", truth: "Le premier qui répond obtient le contrat dans 78% des cas." },
+  { num: '03', title: "Vous gérez des leads au lieu de gérer votre compagnie.", body: "Qualifier un prospect, fixer une soumission, faire le suivi, envoyer les rappels. Ce sont des heures que vous ne passez pas sur le terrain — là où vous générez de la valeur.", truth: "Ce n'est pas votre rôle de gérer la prospection manuellement 24/7." },
+  { num: '04', title: "Vos leads de soir et de fin de semaine signent chez vos compétiteurs.", body: "Les gestionnaires d'immeubles et facility managers prennent leurs décisions en dehors des heures de bureau. Si personne ne répond à 19h un vendredi, ce contrat est perdu. Pour toujours.", truth: "40% des demandes arrivent en dehors des heures normales de travail." },
 ];
 
 const Problem = () => (
@@ -21,13 +21,13 @@ const Problem = () => (
         <Rev>
           <div className="kg-tag">Ce qui se passe en ce moment</div>
           <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 'clamp(28px,4.5vw,54px)', lineHeight: 1.06, letterSpacing: '-.025em' }}>
-            Votre téléphone est votre meilleur vendeur.{' '}
-            <em style={{ color: 'rgba(255,255,255,.35)' }}>Travaille-t-il 24/7 ?</em>
+            Votre compagnie perd des contrats.{' '}
+            <em style={{ color: 'rgba(255,255,255,.35)' }}>Pas par manque de qualité.</em>
           </h2>
         </Rev>
         <Rev delay={1}>
           <p style={{ fontSize: 'clamp(14px,1.8vw,16px)', color: 'rgba(255,255,255,.4)', lineHeight: 1.8, fontWeight: 300 }}>
-            La plupart des compagnies perdent des contrats non pas par manque de qualité — mais par manque de disponibilité.
+            La plupart des compagnies de nettoyage commercial perdent 30 à 40% de leurs leads parce qu'elles ne peuvent pas répondre assez vite. Le problème, c'est pas le service — c'est le Système Kardia.
           </p>
         </Rev>
       </div>

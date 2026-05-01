@@ -14,6 +14,33 @@ function useInView(threshold = 0.2) {
   return [ref, inView];
 }
 
+// Person icon — simple SVG circle + body
+const Person = ({ x, y, r = 16, color, label, sublabel, ring = false, satisfied = false, delay = 0, inView }) => (
+  <g opacity={inView ? 1 : 0} style={{ transition: `opacity 0.5s ${delay}s ease` }}>
+    {/* Outer ring (converted client) */}
+    {ring && (
+      <circle cx={x} cy={y} r={r + 9} fill="none" stroke={color} strokeWidth="1.2" strokeDasharray="3,2" opacity="0.4" />
+    )}
+    {/* Body circle */}
+    <circle cx={x} cy={y + 6} r={r - 4} fill={`${color}18`} stroke={color} strokeWidth="1.2" />
+    {/* Head */}
+    <circle cx={x} cy={y - r + 5} r={r - 8} fill={`${color}25`} stroke={color} strokeWidth="1.2" />
+    {/* Satisfied checkmark */}
+    {satisfied && (
+      <g>
+        <circle cx={x + r - 4} cy={y - r + 2} r="7" fill="#4ade80" />
+        <text x={x + r - 4} y={y - r + 6} textAnchor="middle" fill="#000" fontSize="8" fontWeight="700">✓</text>
+      </g>
+    )}
+    {/* Label */}
+    {label && (
+      <text x={x} y={y + r + 14} textAnchor="middle" fill={color} fontSize="10" fontFamily="monospace" fontWeight="700">{label}</text>
+    )}
+    {sublabel && (
+      <text x={x} y={y + r + 26} textAnchor="middle" fill="rgba(255,255,255,.3)" fontSize="9" fontFamily="monospace">{sublabel}</text>
+    )}
+  </g>
+);
 
 export default function DiagramReferral() {
   const [ref, inView] = useInView();
@@ -67,6 +94,9 @@ export default function DiagramReferral() {
         borderRadius: '4px',
         padding: '22px 20px 14px',
         margin: '28px 0',
+        width: '100%',
+        overflow: 'hidden',
+        boxSizing: 'border-box',
       }}
     >
       {/* Header */}
@@ -82,7 +112,7 @@ export default function DiagramReferral() {
         </div>
       </div>
 
-      <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: 'auto', display: 'block', overflow: 'visible' }}>
+      <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: 'auto', display: 'block', overflow: 'hidden' }}>
         <defs>
           <radialGradient id="drCenterGrad" cx="50%" cy="50%" r="50%">
             <stop offset="0%" stopColor="#7c3aed" stopOpacity="0.25" />

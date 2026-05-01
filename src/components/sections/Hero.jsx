@@ -96,7 +96,20 @@ const Hero = () => {
       <div style={{ position: 'relative', zIndex: 2, maxWidth: '900px', width: '100%' }}>
 
         <div style={rev(1)}>
-          <div className="kg-tag" style={{ margin: '0 auto 28px' }}>
+          <div style={{
+            display: 'inline-flex', alignItems: 'center', gap: '8px',
+            fontFamily: 'monospace', fontSize: '11px', fontWeight: 700,
+            letterSpacing: '.12em', textTransform: 'uppercase',
+            color: '#e2d9f3',
+            background: 'rgba(12,8,28,0.75)',
+            border: '1px solid rgba(168,85,247,.45)',
+            padding: '7px 16px', borderRadius: '100px',
+            marginBottom: '28px',
+            backdropFilter: 'blur(12px)',
+            WebkitBackdropFilter: 'blur(12px)',
+            boxShadow: '0 0 24px -8px rgba(124,58,237,.5)',
+          }}>
+            <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#a855f7', boxShadow: '0 0 6px #a855f7', flexShrink: 0, display: 'inline-block' }} />
             Compagnies de nettoyage · Québec
           </div>
         </div>
@@ -108,10 +121,10 @@ const Hero = () => {
             lineHeight: 1.02, letterSpacing: '-.025em',
             marginBottom: '24px',
           }}>
-            <span style={{ display: 'block', color: 'white' }}>30 à 40% de rendez-vous de plus.</span>
-            <span style={{ display: 'block', color: 'rgba(255,255,255,.45)', fontStyle: 'italic' }}>Zéro employé supplémentaire.</span>
+            <span style={{ display: 'block', color: 'white' }}>5 à 10 nouveaux contrats commerciaux.</span>
+            <span style={{ display: 'block', color: 'rgba(255,255,255,.45)', fontStyle: 'italic' }}>Dans les 90 premiers jours.</span>
             <span style={{ display: 'block', background: 'linear-gradient(to right, #f59e0b, #f97316)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-              Opérationnel en 7 jours.
+              Ou on continue sans frais additionnels.
             </span>
           </h1>
         </div>
@@ -123,7 +136,7 @@ const Hero = () => {
             maxWidth: '560px', margin: '0 auto 16px',
             lineHeight: 1.78, fontWeight: 300,
           }}>
-            On installe un réceptionniste IA dans votre compagnie. Il répond à tous vos messages — 24h/24, 7j/7.
+            Le Système Kardia™ installe 4 piliers d'acquisition dans votre compagnie de nettoyage commercial. Résultat garanti : 5 à 10 nouveaux contrats en 90 jours.
           </p>
           {/* Channels */}
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '8px', marginBottom: '40px' }}>
@@ -141,8 +154,8 @@ const Hero = () => {
 
         <div style={rev(4)}>
           <div style={{ display: 'flex', justifyContent: 'center', gap: '14px', flexWrap: 'wrap', marginBottom: 'clamp(48px,7vw,80px)' }}>
-            <a href="#contact" className="btn-primary">Voir si ça marche pour moi →</a>
-            <a href="#etude-de-cas" className="btn-ghost">Voir les résultats ProNett</a>
+            <a href="#contact" className="btn-primary">Obtenir mes 5 à 10 contrats →</a>
+            <a href="#etude-de-cas" className="btn-ghost">Voir les résultats réels →</a>
           </div>
         </div>
 
@@ -159,9 +172,9 @@ const Hero = () => {
           }}>
             <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(124,58,237,.5), rgba(245,158,11,.3), transparent)' }} />
             {[
+              { val: '5-10',   label: 'contrats en 90 jours', isString: true },
+              { val: '90',     label: 'jours · garanti' },
               { val: '39x',    label: 'ROI · ProNett', isString: true },
-              { val: '25%',    label: 'no-shows → 5%' },
-              { val: '7500$+', label: 'en 30 jours', isString: true },
             ].map((s, i) => (
               <div key={i} style={{ padding: 'clamp(18px,3vw,28px) 0', borderRight: i < 2 ? '1px solid rgba(255,255,255,.07)' : 'none' }}>
                 <StatItem {...s} active={statsVisible} />

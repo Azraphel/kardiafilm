@@ -25,7 +25,7 @@ const Contact = () => {
             Découvrez exactement combien<br />vous perdez par semaine.
           </h2>
           <p style={{ textAlign: 'center', fontSize: 'clamp(14px,1.8vw,17px)', color: 'rgba(255,255,255,.4)', maxWidth: '460px', margin: '0 auto 24px', lineHeight: 1.78, fontWeight: 300 }}>
-            20 minutes. On analyse votre situation. On vous dit si on peut vous aider — et combien vous pouvez récupérer.
+            20 minutes. On analyse votre pipeline. Si le Système Kardia™ est fait pour vous, on vous explique exactement comment atteindre 5 à 10 nouveaux contrats en 90 jours.
           </p>
           <div style={{ display: 'flex', justifyContent: 'center', gap: 'clamp(12px,2vw,24px)', flexWrap: 'wrap', marginBottom: 'clamp(32px,5vw,48px)' }}>
             {['✓ Gratuit et sans engagement', '✓ Réponse honnête', '✓ 20 minutes max'].map((item, i) => (

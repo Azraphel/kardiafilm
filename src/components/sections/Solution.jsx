@@ -11,10 +11,10 @@ const IClock = () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
 const ICheck = () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>;
 
 const gains = [
-  { BeforeIco: IPhone, AfterIco: IPhone, before: "Un client appelle, SMS, ou écrit sur Facebook. Vous êtes occupé. Il passe au suivant.", after: "L'IA répond en quelques secondes sur tous les canaux — 24h/24, 7j/7.", gain: 'Zéro message manqué', gainColor: '#a855f7' },
-  { BeforeIco: IX, AfterIco: ICheck, before: "Un no-show. Votre équipe s'est déplacée pour rien. La journée est débalancée.", after: "Un dépôt collecté à la réservation. Le client est engagé. Les no-shows tombent sous 5%.", gain: 'Journées prévisibles', gainColor: '#f59e0b' },
-  { BeforeIco: IMoon, AfterIco: ICal, before: "Un lead à 21h sur Instagram ou par email. Le lendemain, il a signé ailleurs.", after: "L'IA répond, qualifie et réserve. Peu importe le canal. Peu importe l'heure.", gain: '0 lead perdu la nuit', gainColor: '#a855f7' },
-  { BeforeIco: IClock, AfterIco: ICpu, before: "Encore les mêmes questions sur tous vos canaux. Votre temps part en fumée.", after: "L'IA gère toutes les questions de base. Vous parlez seulement aux clients prêts à signer.", gain: '2-3h récupérées / jour', gainColor: '#f59e0b' },
+  { BeforeIco: IPhone, AfterIco: IPhone, before: "Un gestionnaire contacte votre compagnie. Vous êtes sur un chantier. Il ne laisse pas de message. Il appelle le suivant.", after: "L'IA répond en moins de 2 minutes sur tous les canaux — qualifie le prospect et fixe la soumission. 24h/24.", gain: 'Zéro lead perdu', gainColor: '#a855f7' },
+  { BeforeIco: IX, AfterIco: ICheck, before: "Un prospect demande une soumission. Vous rappelez 24h plus tard. Il a déjà signé un contrat ailleurs.", after: "Le Système Kardia suit chaque lead automatiquement. Le prospect reçoit une réponse dans les minutes qui suivent — pas le lendemain.", gain: 'Suivi automatique', gainColor: '#f59e0b' },
+  { BeforeIco: IMoon, AfterIco: ICal, before: "Un facility manager écrit à 21h. Il cherche un fournisseur de nettoyage pour ses bureaux. Personne répond. Il passe à autre chose.", after: "L'IA répond, qualifie et fixe la soumission. Peu importe l'heure. Le lendemain matin, le lead est dans votre calendrier.", gain: '0 contrat perdu la nuit', gainColor: '#a855f7' },
+  { BeforeIco: IClock, AfterIco: ICpu, before: "Qualifier les prospects, faire les suivis, répondre aux mêmes questions. Des heures perdues chaque semaine qui ne génèrent pas de revenus.", after: "L'IA gère la qualification et les suivis. Vous parlez seulement aux prospects prêts à signer un contrat.", gain: '2-3h récupérées / jour', gainColor: '#f59e0b' },
 ];
 
 const Solution = () => (
@@ -29,14 +29,14 @@ const Solution = () => (
         <div className="kg-tag">Ce que ça change concrètement</div>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr clamp(180px,30%,300px)', gap: 'clamp(24px,4vw,48px)', alignItems: 'end', marginBottom: 'clamp(40px,6vw,64px)' }}>
           <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 'clamp(28px,4.5vw,54px)', lineHeight: 1.06, letterSpacing: '-.025em' }}>
-            Avant le système.{' '}
+            Avant le Système Kardia.{' '}
             <span style={{ background: 'linear-gradient(to right, #a855f7, #f59e0b)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-              Après le système.
+              Après le Système Kardia.
             </span>
           </h2>
           <div>
             <p style={{ fontSize: 'clamp(13px,1.6vw,15px)', color: 'rgba(255,255,255,.4)', lineHeight: 1.8, fontWeight: 300, marginBottom: '16px' }}>
-              Des changements concrets dans votre quotidien — sur tous vos canaux.
+              Des changements concrets dans votre pipeline — sur tous vos canaux.
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
               {['📞 Appels', '💬 SMS', '📘 Facebook', '📷 Instagram', '🔍 Google', '📧 Email'].map((c, i) => (
@@ -96,13 +96,13 @@ const Solution = () => (
           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: 'linear-gradient(90deg, transparent, #7c3aed, #f59e0b, transparent)' }} />
           <div style={{ maxWidth: '480px' }}>
             <p style={{ fontFamily: "'DM Serif Display', serif", fontSize: 'clamp(18px,2.5vw,24px)', color: 'white', lineHeight: 1.35, marginBottom: '6px' }}>
-              Votre compétition répond déjà en moins de 2 minutes.
+              Vos compétiteurs signent les contrats que vous manquez en ce moment.
             </p>
             <p style={{ fontSize: 'clamp(13px,1.6vw,15px)', color: 'rgba(255,255,255,.4)', lineHeight: 1.7, fontWeight: 300 }}>
-              La question c'est combien de contrats vous attendez de perdre avant de mettre un système en place.
+              Le Système Kardia™ garantit 5 à 10 nouveaux contrats commerciaux en 90 jours — ou on continue sans frais additionnels.
             </p>
           </div>
-          <a href="#contact" className="btn-primary" style={{ flexShrink: 0 }}>Je veux ce système →</a>
+          <a href="#contact" className="btn-primary" style={{ flexShrink: 0 }}>Obtenir mes 5 à 10 contrats →</a>
         </div>
       </Rev>
     </div>

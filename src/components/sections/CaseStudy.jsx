@@ -132,7 +132,7 @@ const CaseStudy = () => {
             {/* Footer */}
             <div style={{ padding: 'clamp(16px,2vw,22px) clamp(24px,3.5vw,36px)', borderTop: '1px solid rgba(255,255,255,.06)', background: 'rgba(0,0,0,.3)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
               <div>
-                <p style={{ fontFamily: "'DM Serif Display', serif", fontSize: 'clamp(15px,2vw,18px)', color: 'white', marginBottom: '6px' }}>Votre compagnie pourrait être la prochaine.</p>
+                <p style={{ fontFamily: "'DM Serif Display', serif", fontSize: 'clamp(15px,2vw,18px)', color: 'white', marginBottom: '6px' }}>5 à 10 contrats commerciaux en 90 jours — garanti.</p>
                 <a href="/case-studies" style={{ fontFamily: 'monospace', fontSize: '11px', color: 'rgba(168,85,247,.55)', textDecoration: 'none', letterSpacing: '.04em', transition: 'color .2s' }}
                   onMouseEnter={e => e.currentTarget.style.color = '#a855f7'}
                   onMouseLeave={e => e.currentTarget.style.color = 'rgba(168,85,247,.55)'}
@@ -140,7 +140,7 @@ const CaseStudy = () => {
                   Lire l'étude de cas complète →
                 </a>
               </div>
-              <a href="#contact" className="btn-primary" style={{ flexShrink: 0, fontSize: '13px', padding: '10px 22px' }}>Réserver mon appel →</a>
+              <a href="#contact" className="btn-primary" style={{ flexShrink: 0, fontSize: '13px', padding: '10px 22px' }}>Obtenir mes 5 à 10 contrats →</a>
             </div>
           </div>
         </Rev>
